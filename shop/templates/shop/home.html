@@ -1,0 +1,36 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+    {% if recommended %}
+    <div class="rec-section">
+        <h2 style="margin-top:0">✨ Just for You</h2>
+        <div class="product-grid">
+            {% for p in recommended %}
+            <div class="card">
+                <div class="card-body">
+                    <span class="category-badge">{{ p.category }}</span>
+                    <h3>{{ p.name }}</h3>
+                    <a href="{% url 'like_product' p.id %}" class="btn btn-outline" style="font-size: 0.8rem;">❤️ Interested</a>
+                    <a href="{% url 'add_to_cart' p.id %}" class="btn btn-primary" style="display:block; margin-top:10px">🛒 Add to Cart</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <h2>All Products</h2>
+    <div class="product-grid">
+        {% for p in products %}
+        <div class="card">
+            <div class="card-body">
+                <span class="category-badge">{{ p.category }}</span>
+                <h3>{{ p.name }}</h3>
+                <p style="color: var(--primary); font-weight: bold; font-size: 1.2rem;">₹{{ p.price }}</p>
+                <a href="{% url 'like_product' p.id %}" class="btn btn-outline">❤️ Like</a>
+                <a href="{% url 'add_to_cart' p.id %}" class="btn btn-primary">🛒 Add to Cart</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
